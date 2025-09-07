@@ -1,0 +1,30 @@
+@D365MarketingForms.Server_HostAddress = http://localhost:5265
+
+### Get a JWT authentication token
+# @name tokenRequest
+POST {{D365MarketingForms.Server_HostAddress}}/token
+Content-Type: application/json
+
+{
+  "apiKey": "the-api-key"
+}
+
+### Store the token from the response
+@authToken = {{tokenRequest.response.body.token}}
+
+### Get all marketing forms
+GET {{D365MarketingForms.Server_HostAddress}}/marketingforms
+Authorization: Bearer {{authToken}}
+Accept: application/json
+
+### Get a specific marketing form by ID
+GET {{D365MarketingForms.Server_HostAddress}}/marketingforms/00000000-0000-0000-0000-000000000000
+Authorization: Bearer {{authToken}}
+Accept: application/json
+
+### Get a specific marketing form by slug
+GET {{D365MarketingForms.Server_HostAddress}}/marketingforms/example-form-slug
+Authorization: Bearer {{authToken}}
+Accept: application/json
+
+###
